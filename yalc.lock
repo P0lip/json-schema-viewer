@@ -5,6 +5,11 @@
       "signature": "5fb740d5174b768ba3b4298f798a6c7c",
       "file": true,
       "replaced": "1.49.3"
+    },
+    "@stoplight/tree-list": {
+      "signature": "274fbf7da786430c8e47cfd554e09d61",
+      "file": true,
+      "replaced": "^3.6.0"
     }
   }
 }
