@@ -1,0 +1,1 @@
+{"version":3,"file":"highlightCode.js","sourceRoot":"","sources":["../../../src/CodeEditor/utils/highlightCode.ts"],"names":[],"mappings":";;AAAA,qCAA+C;AAElC,QAAA,aAAa,GAAG,CAAC,IAAY,EAAE,QAAgB,EAAE,EAAE;IAC9D,MAAM,OAAO,GAAG,mBAAS,CAAC,QAAQ,CAAC,CAAC;IACpC,OAAO,OAAO,CAAC,CAAC,CAAC,mBAAS,CAAC,IAAI,EAAE,OAAO,EAAE,EAAE,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC;AACvD,CAAC,CAAC"}

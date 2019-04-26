@@ -1,0 +1,55 @@
+/*
+ * UTILS
+ * contains theme and helper functions
+ */
+
+@import './common/utils';
+
+/*
+ * THEME
+ * contains theme and helper functions
+ */
+
+@import './common/theme';
+
+/*
+ * EXTERNAL SCSS DEPS
+ */
+
+@import './blueprint/base';
+@import './tailwind/base';
+
+/*
+ * COMPONENTS
+ */
+
+@import './components/base';
+
+// some extra custom styling we want to apply
+body,
+html {
+  height: 100%;
+}
+
+.root {
+  background-color: 0.1s cubic-bezier(0.4, 1, 0.75, 0.9);
+}
+
+#{ns} a {
+  color: get-color(info, 6);
+}
+
+.#{$ns}-label {
+  font-weight: get-font-weight(semibold);
+}
+
+.#{$ns}-select-popover .#{$ns}-menu {
+  max-width: 400px;
+  max-height: 300px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.#{$ns}-select-popover .#{$ns}-menu .#{$ns}-menu-item-label {
+  font-size: 10px;
+}
