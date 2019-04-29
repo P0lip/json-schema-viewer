@@ -2,12 +2,12 @@
   "version": "v1",
   "packages": {
     "@stoplight/ui-kit": {
-      "signature": "5fb740d5174b768ba3b4298f798a6c7c",
+      "signature": "d8f2e30714a553d01ed9529134b67c6e",
       "file": true,
       "replaced": "1.49.3"
     },
     "@stoplight/tree-list": {
-      "signature": "274fbf7da786430c8e47cfd554e09d61",
+      "signature": "dbc35fcc859751432db35254c6b39083",
       "file": true,
       "replaced": "^3.6.0"
     }
