@@ -38,7 +38,7 @@ const TreeListItem = mobx_react_lite_1.observer((props) => {
         }, nodes: nodes }, rest),
         React.createElement(_1.NodeCaret, { onClick: onCaretClick, expanded: isExpanded, store: store.icons, node: node }),
         React.createElement(_1.NodeIcon, { expanded: isExpanded, store: store.icons, node: node }),
-        React.createElement("span", { className: "TreeListItemLabel" }, rowRenderer(node))));
+        React.createElement("span", { className: "flex items-center flex-1" }, rowRenderer(node))));
 });
 exports.TreeListItem = TreeListItem;
 //# sourceMappingURL=TreeListItem.js.map
