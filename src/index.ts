@@ -1,2 +1,1 @@
-export * from './JsonSchemaViewer';
-export { ThemeProvider } from './theme';
+export * from './components/JsonSchemaViewer';

@@ -2,14 +2,11 @@ import { TreeStore } from '@stoplight/tree-list';
 import { Omit } from '@stoplight/types';
 import { runInAction } from 'mobx';
 import * as React from 'react';
-import { ErrorMessage } from './components/common/ErrorMessage';
-import { MutedText } from './components/common/MutedText';
-import { ISchemaView, SchemaView } from './SchemaView';
-import { ThemeZone } from './theme';
-import { isSchemaViewerEmpty } from './utils/isSchemaViewerEmpty';
-import { renderSchema } from './utils/renderSchema';
 
-export interface IJsonSchemaViewer extends Omit<ISchemaView, 'emptyText' | 'treeStore'> {
+import { isSchemaViewerEmpty, renderSchema } from '../utils';
+import { ISchemaTree, SchemaTree } from './SchemaTree';
+
+export interface IJsonSchemaViewer extends Omit<ISchemaTree, 'treeStore'> {
   emptyText?: string;
   defaultExpandedDepth?: number;
 }
@@ -67,31 +64,19 @@ export class JsonSchemaViewer extends React.PureComponent<IJsonSchemaViewer, IJs
 
   public render() {
     const {
-      props: { emptyText = 'No schema defined', name, schema, schemas, expanded, defaultExpandedDepth, ...props },
+      props: { emptyText = 'No schema defined', name, schema, expanded, defaultExpandedDepth, ...props },
       state: { error },
     } = this;
 
     if (error) {
-      return (
-        <ThemeZone name="json-schema-viewer">
-          <ErrorMessage>{error}</ErrorMessage>
-        </ThemeZone>
-      );
+      return <div>{error}</div>;
     }
 
     // an empty array or object is still a valid response, schema is ONLY really empty when a combiner type has no information
     if (isSchemaViewerEmpty(schema)) {
-      return (
-        <ThemeZone name="json-schema-viewer">
-          <MutedText>{emptyText}</MutedText>
-        </ThemeZone>
-      );
+      return <div>{emptyText}</div>;
     }
 
-    return (
-      <ThemeZone name="json-schema-viewer">
-        <SchemaView expanded={expanded} name={name} schema={schema} treeStore={this.treeStore} {...props} />
-      </ThemeZone>
-    );
+    return <SchemaTree expanded={expanded} name={name} schema={schema} treeStore={this.treeStore} {...props} />;
   }
 }

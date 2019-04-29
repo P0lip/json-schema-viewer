@@ -4,12 +4,12 @@ import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import { boolean, number, object, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
-import { JsonSchemaViewer } from '../JsonSchemaViewer';
+import { JsonSchemaViewer } from '../components';
 
-import * as schema from '../__fixtures__/default-schema.json';
-import * as schemaWithRefs from '../__fixtures__/ref/original.json';
-import * as dereferencedSchema from '../__fixtures__/ref/resolved.json';
-import * as stressSchema from '../__fixtures__/stress-schema.json';
+import { schema } from '../__fixtures__/default-schema';
+import { schemaWithRefs } from '../__fixtures__/ref/original';
+import { dereferencedSchema } from '../__fixtures__/ref/resolved';
+import { stressSchema } from '../__fixtures__/stress-schema';
 
 storiesOf('JsonSchemaViewer', module)
   .addDecorator(withKnobs)
