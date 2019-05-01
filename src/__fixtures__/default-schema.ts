@@ -3,10 +3,11 @@ import { JSONSchema4 } from 'json-schema';
 export const schema: JSONSchema4 = {
   title: 'User',
   type: 'object',
+  description: 'some descriptions',
   properties: {
     name: {
       type: 'string',
-      description: "The user's full name.",
+      description: "# The user's full name.",
     },
     age: {
       type: 'number',
@@ -65,6 +66,9 @@ export const schema: JSONSchema4 = {
       $ref: '#/definitions/error-response',
     },
   },
+  minItems: 1,
+  minProperties: 20,
+  pattern: '^a',
   patternProperties: {
     '^id_': {
       type: 'number',

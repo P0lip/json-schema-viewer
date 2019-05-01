@@ -1,15 +1,19 @@
 {
   "version": "v1",
   "packages": {
-    "@stoplight/ui-kit": {
-      "signature": "d8f2e30714a553d01ed9529134b67c6e",
-      "file": true,
-      "replaced": "1.49.3"
-    },
     "@stoplight/tree-list": {
-      "signature": "dbc35fcc859751432db35254c6b39083",
+      "signature": "f9e98daf4c8696dfeca81a6f750ab86c",
       "file": true,
       "replaced": "^3.6.0"
+    },
+    "@stoplight/ui-kit": {
+      "signature": "9408822902b7faff2eb2a4e9f93fc141",
+      "file": true,
+      "replaced": "2.0.0-beta.10"
+    },
+    "@stoplight/markdown-viewer": {
+      "signature": "8bf9c18fb3f4d6c2a530db7ed530c299",
+      "file": true
     }
   }
 }

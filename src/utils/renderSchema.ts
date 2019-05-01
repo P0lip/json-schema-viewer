@@ -26,19 +26,6 @@ const getProperties: Walker = function*(schema, dereferencedSchema, level = 0, m
   }
 };
 
-const getPatternProperties: Walker = function*(schema, dereferencedSchema, level = 0, meta) {
-  if (schema.patternProperties !== undefined) {
-    const { path } = meta!;
-    for (const [prop, property] of Object.entries(schema.patternProperties)) {
-      yield* renderSchema(property, dereferencedSchema, level + 1, {
-        name: prop,
-        path: [...path, prop],
-        pattern: true,
-      });
-    }
-  }
-};
-
 export const renderSchema: Walker = function*(schema, dereferencedSchema, level = 0, meta = { path: [] }) {
   const { path } = meta;
 
@@ -131,10 +118,6 @@ export const renderSchema: Walker = function*(schema, dereferencedSchema, level 
 
       yield* getProperties(schema, dereferencedSchema, level, {
         path: [...path, 'properties'],
-      });
-
-      yield* getPatternProperties(schema, dereferencedSchema, level, {
-        path: [...path, 'patternProperties'],
       });
     } else {
       yield baseNode;

@@ -1,14 +1,17 @@
-import { TreeList, TreeListEvents, TreeStore } from '@stoplight/tree-list';
+import { ITreeListNode, TreeList, TreeListEvents, TreeStore } from '@stoplight/tree-list';
 import { Omit } from '@stoplight/types';
+
 import * as cn from 'classnames';
 import { JSONSchema4 } from 'json-schema';
-import _isEmpty = require('lodash/isEmpty');
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
+import _isEmpty = require('lodash/isEmpty');
+
 import { useMetadata } from '../hooks';
-import { IMasking } from '../types';
+import { IMasking, SchemaNodeWithMeta } from '../types';
 import { lookupRef } from '../utils';
-import { ISchemaRow, MaskedSchema, SchemaRow, TopBar } from './';
+import { DetailDialog, ISchemaRow, MaskedSchema, SchemaRow, TopBar } from './';
 
 const canDrag = () => false;
 
@@ -21,7 +24,8 @@ export interface ISchemaTree extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   treeStore: TreeStore;
 }
 
-export const SchemaTree: React.FunctionComponent<ISchemaTree> = props => {
+// @ts-ignore
+export const SchemaTree: React.NamedExoticComponent<ISchemaTree> = observer((props: ISchemaTree) => {
   const {
     expanded = false,
     schema,
@@ -39,6 +43,7 @@ export const SchemaTree: React.FunctionComponent<ISchemaTree> = props => {
   const [maskedSchema, setMaskedSchema] = React.useState<JSONSchema4 | null>(null);
 
   const metadata = useMetadata(schema);
+  const activeNode = treeStore.nodes.find(node => node.id === treeStore.activeNodeId);
 
   const handleMaskEdit = React.useCallback<ISchemaRow['onMaskEdit']>(
     node => {
@@ -48,7 +53,11 @@ export const SchemaTree: React.FunctionComponent<ISchemaTree> = props => {
   );
 
   treeStore.on(TreeListEvents.NodeClick, (e, node) => {
-    treeStore.toggleExpand(node);
+    if (node.canHaveChildren) {
+      treeStore.toggleExpand(node);
+    } else {
+      treeStore.setActiveNode(node.id);
+    }
   });
 
   const handleMaskedSchemaClose = React.useCallback(() => {
@@ -62,6 +71,7 @@ export const SchemaTree: React.FunctionComponent<ISchemaTree> = props => {
     onMaskEdit: handleMaskEdit,
     selected,
     canSelect,
+    treeStore,
   };
 
   return (
@@ -70,13 +80,14 @@ export const SchemaTree: React.FunctionComponent<ISchemaTree> = props => {
         <MaskedSchema onClose={handleMaskedSchemaClose} onSelect={onSelect} selected={selected} schema={maskedSchema} />
       )}
       {shouldRenderTopBar && <TopBar name={name} metadata={metadata} />}
+      <DetailDialog node={activeNode as ITreeListNode<SchemaNodeWithMeta>} treeStore={treeStore} />
       <TreeList
         rowHeight={40}
         canDrag={canDrag}
+        striped
         store={treeStore}
-        striped={true}
         rowRenderer={node => <SchemaRow node={node} {...itemData} />}
       />
     </div>
   );
-};
+});

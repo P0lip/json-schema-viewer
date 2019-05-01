@@ -16,7 +16,7 @@ export const Types: React.FunctionComponent<ITypes> = ({ type, subtype, ...rest 
   }
 
   return (
-    <div>
+    <div className="truncate">
       {type.map((name, i, { length }) => (
         <>
           <Type type={name} subtype={subtype} />
