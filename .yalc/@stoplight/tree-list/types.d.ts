@@ -25,7 +25,7 @@ export interface ITreeListItem extends React.HTMLAttributes<HTMLDivElement> {
     index: number;
     data: ITreeListItemData;
 }
-export interface ITreeListItemData extends Pick<ITreeList, 'autoExpandDelay' | 'rowHeight' | 'rowRenderer' | 'canDrag' | 'canDrop' | 'generateContextMenu'> {
+export interface ITreeListItemData extends Pick<ITreeList, 'autoExpandDelay' | 'rowHeight' | 'rowRenderer' | 'canDrag' | 'canDrop' | 'generateContextMenu' | 'striped'> {
     nodes: TreeListNode[];
 }
 export interface ITreeListContextMenu {
@@ -57,12 +57,16 @@ export declare type TreeListMouseEventHandler = (e: React.MouseEvent<HTMLElement
 export declare type TreeListDropEventHandler = (node: TreeListNode, parentNode: TreeListParentNode) => void;
 export declare enum TreeListEvents {
     NodeClick = "node.click",
+    NodeMouseEnter = "node.mouseenter",
+    NodeMouseLeave = "node.mouseexit",
     NodeDoubleClick = "node.doubleClick",
     NodeCaretClick = "node.caretClick",
     Drop = "drop"
 }
 export interface ITreeListEvents {
     [TreeListEvents.NodeClick]: TreeListMouseEventHandler;
+    [TreeListEvents.NodeMouseEnter]: TreeListMouseEventHandler;
+    [TreeListEvents.NodeMouseLeave]: TreeListMouseEventHandler;
     [TreeListEvents.NodeDoubleClick]: TreeListMouseEventHandler;
     [TreeListEvents.NodeCaretClick]: TreeListMouseEventHandler;
     [TreeListEvents.Drop]: TreeListDropEventHandler;
@@ -74,6 +78,7 @@ export interface ITreeListNode<T extends object = object> {
     name: string;
     type?: TreeListNodeType;
     canHaveChildren?: boolean;
+    className?: string;
     metadata?: T;
 }
 export interface IRootNode {

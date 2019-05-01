@@ -23,6 +23,7 @@ const TreeList = mobx_react_lite_1.observer((props) => {
         rowHeight,
         nodes,
         generateContextMenu,
+        striped,
     };
     React.useEffect(() => {
         if (listRef.current !== null && newNode !== undefined) {
@@ -39,7 +40,7 @@ const TreeList = mobx_react_lite_1.observer((props) => {
         width: '100%',
         ref: listRef,
     };
-    return (React.createElement(DraggableContainer_1.DraggableContainer, Object.assign({ className: cn(className, 'TreeList', striped && 'striped') }, rest),
+    return (React.createElement(DraggableContainer_1.DraggableContainer, Object.assign({ className: cn(className, 'TreeList') }, rest),
         React.createElement(ScrollList_1.FixedSizeList, Object.assign({}, listProps), TreeListItem_1.TreeListItem)));
 });
 exports.TreeList = TreeList;

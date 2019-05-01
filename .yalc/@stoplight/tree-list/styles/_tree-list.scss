@@ -23,20 +23,8 @@ $tree-icon-spacing: ($tree-row-height - 16) / 2 !default;
     will-change: scroll-position !important;
   }
 
-  &.striped {
-    .TreeListItem:nth-child(odd) {
-      background: rgba(get-color(gray, 4), 0.15);
-    }
-  }
-
   .#{$ns}-dark & {
     color: #f5f8fa;
-
-    &.striped {
-      .TreeListItem:nth-child(odd) {
-        background: rgba(#ced9e0, 0.15);
-      }
-    }
   }
 }
 
@@ -46,17 +34,24 @@ $tree-icon-spacing: ($tree-row-height - 16) / 2 !default;
   align-items: center;
   cursor: pointer;
 
+  &.striped {
+    background: rgba(get-color(gray, 4), 0.15);
+  }
+
   &:hover {
-    background-color: rgba(get-color(gray, 4), 0.3) !important;
-    cursor: pointer;
+    background-color: rgba(get-color(gray, 4), 0.3);
   }
 
   &:active {
-    background-color: rgba(get-color(gray, 4), 0.4) !important;
+    background-color: rgba(get-color(gray, 4), 0.4);
+  }
+
+  &.selected {
+    background-color: rgba(get-color(gray, 4), 0.4);
   }
 
   &.TreeListItem-highlighted {
-    background-color: rgba(get-color(gray, 4), 0.4) !important;
+    background-color: rgba(get-color(gray, 4), 0.4);
   }
 
   @for $i from 0 through 20 {
@@ -66,16 +61,24 @@ $tree-icon-spacing: ($tree-row-height - 16) / 2 !default;
   }
 
   .#{$ns}-dark & {
+    &.striped {
+      background: rgba(#5c7080, 0.15);
+    }
+
     &:hover {
-      background-color: rgba(#5c7080, 0.3) !important;
+      background-color: rgba(#5c7080, 0.3);
     }
 
     &:active {
-      background-color: rgba(#5c7080, 0.4) !important;
+      background-color: rgba(#5c7080, 0.4);
     }
 
     &.TreeListItem-highlighted {
-      background-color: rgba(#5c7080, 0.4) !important;
+      background-color: rgba(#5c7080, 0.4);
+    }
+
+    &.selected {
+      background-color: rgba(#5c7080, 0.4);
     }
   }
 }

@@ -1,6 +1,10 @@
 export declare const Classes: {
     NS: string;
     CODE_EDITOR: string;
+    SIMPLE_TAB: string;
+    SIMPLE_TAB_LIST: string;
+    SIMPLE_TAB_PANEL: string;
+    SCROLL_CONTAINER: string;
     SCROLL_TRACK: string;
     SCROLL_THUMB: string;
     getClassNamespace(): string;

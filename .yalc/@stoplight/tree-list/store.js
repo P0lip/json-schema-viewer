@@ -90,6 +90,9 @@ class TreeStore extends emitter_1.createEmitter() {
     isNodeExpanded(node) {
         return (!(node.id in this.expanded) && node.level <= this.defaultExpandedDepth) || this.expanded[node.id] === true;
     }
+    setActiveNode(nodeId) {
+        this.activeNodeId = nodeId;
+    }
     cancel() {
         Object.assign(this.internalState, {
             newNode: undefined,
@@ -139,6 +142,12 @@ tslib_1.__decorate([
     mobx_1.action,
     tslib_1.__metadata("design:type", Object)
 ], TreeStore.prototype, "toggleExpand", void 0);
+tslib_1.__decorate([
+    mobx_1.action,
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", void 0)
+], TreeStore.prototype, "setActiveNode", null);
 tslib_1.__decorate([
     mobx_1.action,
     tslib_1.__metadata("design:type", Function),

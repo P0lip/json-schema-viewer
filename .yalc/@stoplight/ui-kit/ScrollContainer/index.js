@@ -6,32 +6,22 @@ const React = require("react");
 const react_custom_scrollbars_1 = require("react-custom-scrollbars");
 const __1 = require("../");
 const hooks_1 = require("./hooks");
-const utils_1 = require("./utils");
 const ScrollContainer = props => {
-    const { scrollTo, children, onUpdate, autoHideTimeout = 500, innerRef, style } = props, scrollbarProps = tslib_1.__rest(props, ["scrollTo", "children", "onUpdate", "autoHideTimeout", "innerRef", "style"]);
-    const [isScrolling, setIsScrolling] = React.useState(null);
-    hooks_1.useScrollToHash(scrollTo);
+    hooks_1.useScrollToHash(props.scrollTo);
+    const [showShadowOnMount, setShowShadowOnMount] = React.useState(props.shadows);
+    const { scrollTo, children, shadows = true, innerRef, onScroll, style } = props, scrollbarProps = tslib_1.__rest(props, ["scrollTo", "children", "shadows", "innerRef", "onScroll", "style"]);
     const scrollbars = innerRef || React.useRef(null);
-    const position = (scrollbars.current && scrollbars.current.getValues()) || {};
-    const { clientHeight, clientWidth, scrollHeight, scrollLeft, scrollTop, scrollWidth } = position;
-    const thumbHorizontal = utils_1.getThumbDimension({ scroll: scrollWidth, client: clientWidth }) || 0;
-    const thumbVertical = utils_1.getThumbDimension({ scroll: scrollHeight, client: clientHeight }) || 0;
-    return (React.createElement(react_custom_scrollbars_1.default, Object.assign({}, scrollbarProps, { style: style, ref: scrollbars, autoHideTimeout: autoHideTimeout, onUpdate: onUpdate, onScroll: (e) => {
-            if (isScrolling !== null) {
-                clearTimeout(isScrolling);
-            }
-            setIsScrolling(setTimeout(() => {
-                setIsScrolling(null);
-            }, autoHideTimeout));
+    const scrollPosition = (scrollbars.current && scrollbars.current.getValues()) || {};
+    const { scrollTop, scrollHeight, clientHeight } = scrollPosition;
+    const shadowTop = shadows && scrollTop;
+    const shadowBottom = showShadowOnMount || (shadows && scrollHeight && scrollHeight - scrollTop !== clientHeight);
+    return (React.createElement(react_custom_scrollbars_1.default, Object.assign({}, scrollbarProps, { ref: scrollbars, autoHide: true, autoHideTimeout: 1000, autoHideDuration: 300, onScroll: (e) => {
+            if (onScroll)
+                onScroll(e);
+            setShowShadowOnMount(false);
         }, renderView: ({ style }) => {
-            return (React.createElement("div", { style: Object.assign({}, style, { marginRight: '-15px', marginBottom: '-15px' }) }));
-        }, renderTrackHorizontal: hTrackProps => React.createElement("div", Object.assign({}, hTrackProps, { className: cn(__1.Classes.SCROLL_TRACK, 'horizontal') })), renderThumbHorizontal: (_a) => {
-            var { ref: hThumbRef, style: hThumbStyle = {} } = _a, hThumbRest = tslib_1.__rest(_a, ["ref", "style"]);
-            return (React.createElement("div", Object.assign({}, hThumbRest, { ref: hThumbRef, className: cn(__1.Classes.SCROLL_THUMB, !isScrolling && 'static'), style: Object.assign({}, hThumbStyle, { height: '6px', width: thumbHorizontal, transform: `translateX(${utils_1.getScrollTransform(clientWidth, scrollWidth, scrollLeft, thumbHorizontal)}px)` }) })));
-        }, renderTrackVertical: vTrackProps => React.createElement("div", Object.assign({}, vTrackProps, { className: cn(__1.Classes.SCROLL_TRACK, 'vertical') })), renderThumbVertical: (_a) => {
-            var { ref: vThumbRef, style: vThumbStyle = {} } = _a, vThumbRest = tslib_1.__rest(_a, ["ref", "style"]);
-            return (React.createElement("div", Object.assign({}, vThumbRest, { ref: vThumbRef, className: cn(__1.Classes.SCROLL_THUMB, !isScrolling && 'static'), style: Object.assign({}, vThumbStyle, { height: thumbVertical, width: '6px', transform: `translateY(${utils_1.getScrollTransform(clientHeight, scrollHeight, scrollTop, thumbVertical)}px)` }) })));
-        } }), children));
+            return (React.createElement("div", { className: cn(__1.Classes.SCROLL_CONTAINER, shadowTop && 'shadow-top', shadowBottom && 'shadow-bottom'), style: Object.assign({}, style, { marginRight: '-15px', marginBottom: '-15px' }) }));
+        }, renderTrackHorizontal: ({ style }) => (React.createElement("div", { style: Object.assign({}, style, { borderRadius: 3, right: 10, bottom: 2, left: 2 }) })), renderThumbHorizontal: hThumbProps => React.createElement("div", Object.assign({}, hThumbProps, { className: "bg-darken-5 dark:bg-darken-8 rounded" })), renderTrackVertical: ({ style }) => (React.createElement("div", { style: Object.assign({}, style, { borderRadius: 3, bottom: 10, right: 2, top: 2 }) })), renderThumbVertical: vThumbProps => React.createElement("div", Object.assign({}, vThumbProps, { className: "bg-darken-5 dark:bg-darken-8 rounded" })) }), children));
 };
 exports.ScrollContainer = ScrollContainer;
 ScrollContainer.displayName = 'ScrollContainer';

@@ -1,6 +1,6 @@
 {
   "name": "@stoplight/tree-list",
-  "version": "0.0.1-dbc35fcc",
+  "version": "0.0.1-f9e98daf",
   "description": "A React component that renders a file tree like interface.",
   "keywords": [],
   "main": "index.js",
@@ -19,16 +19,16 @@
   },
   "peerDependencies": {
     "@stoplight/ui-kit": ">=2",
+    "mobx": "5.x.x",
     "react": ">=16.8",
     "react-dom": ">=16.8"
   },
   "dependencies": {
-    "@stoplight/lifecycle": "^2.0.1",
+    "@stoplight/lifecycle": "2.x.x",
     "@stoplight/types": "4.x.x",
-    "classnames": "^2.2.6",
-    "mobx": "5.x.x",
+    "classnames": "2.x.x",
     "mobx-react-lite": "1.x.x",
-    "strict-event-emitter-types": "^2.0.0"
+    "strict-event-emitter-types": "2.x.x"
   },
   "typings": "index.d.ts"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@stoplight/ui-kit",
-  "version": "0.0.0-d8f2e307",
+  "version": "0.0.0-94088229",
   "description": "Foundational React components for the Stoplight ecosystem.",
   "keywords": [
     "react",
@@ -37,6 +37,7 @@
     "immer": "^2.0.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-simple-code-editor": "0.9.10",
+    "react-tabs": "^3.0.0",
     "react-virtualized": "^9.21.0",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "1.8.1",

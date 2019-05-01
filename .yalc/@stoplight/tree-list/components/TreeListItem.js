@@ -12,19 +12,22 @@ const _1 = require("./");
 const TreeListContextMenu_1 = require("./TreeListContextMenu");
 const TreeListProvider_1 = require("./TreeListProvider");
 const TreeListItem = mobx_react_lite_1.observer((props) => {
-    const { data, index, className: propClass } = props;
-    const { nodes, rowRenderer, generateContextMenu } = data, rest = tslib_1.__rest(data, ["nodes", "rowRenderer", "generateContextMenu"]);
+    const { data, index, className: propClass, style } = props;
+    const { nodes, rowRenderer, generateContextMenu, striped } = data, rest = tslib_1.__rest(data, ["nodes", "rowRenderer", "generateContextMenu", "striped"]);
     const { newNode } = hooks_1.useInternalState();
     const { draggable } = React.useContext(TreeListProvider_1.TreeContext);
     const store = hooks_1.useStore();
     const node = utils_1.getTreeListItemNode(nodes, index, newNode);
     const isExpanded = store.isNodeExpanded(node);
-    const className = cn(`TreeListItem TreeListItemLevel-${node.level}`, propClass, {
-        active: store.activeNodeId === node.id,
+    const className = cn(`TreeListItem TreeListItemLevel-${node.level}`, node.className, propClass, {
+        selected: store.activeNodeId === node.id,
+        striped: striped && index % 2 === 0,
     });
     const onClick = hooks_1.useNodeCallback(types_1.TreeListEvents.NodeClick, node);
     const onCaretClick = hooks_1.useNodeCallback(types_1.TreeListEvents.NodeCaretClick, node);
-    return (React.createElement(_1.DraggableItem, Object.assign({ key: node.id, className: className, "data-drop-zone-id": node[utils_1.DROP_ZONE_ID], node: node, onClick: onClick, onContextMenu: (e) => {
+    const onMouseEnter = hooks_1.useNodeCallback(types_1.TreeListEvents.NodeMouseEnter, node);
+    const onMouseLeave = hooks_1.useNodeCallback(types_1.TreeListEvents.NodeMouseLeave, node);
+    return (React.createElement(_1.DraggableItem, Object.assign({ key: node.id, id: node.id, className: className, "data-drop-zone-id": node[utils_1.DROP_ZONE_ID], node: node, onClick: onClick, onMouseEnter: onMouseEnter, onMouseLeave: onMouseLeave, onContextMenu: (e) => {
             e.preventDefault();
             if (!generateContextMenu)
                 return;
@@ -35,7 +38,7 @@ const TreeListItem = mobx_react_lite_1.observer((props) => {
                     draggable.highlighter.clearRange();
                 });
             }
-        }, nodes: nodes }, rest),
+        }, nodes: nodes, style: style }, rest),
         React.createElement(_1.NodeCaret, { onClick: onCaretClick, expanded: isExpanded, store: store.icons, node: node }),
         React.createElement(_1.NodeIcon, { expanded: isExpanded, store: store.icons, node: node }),
         React.createElement("span", { className: "flex items-center flex-1" }, rowRenderer(node))));

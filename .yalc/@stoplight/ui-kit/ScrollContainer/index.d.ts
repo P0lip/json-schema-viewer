@@ -6,6 +6,7 @@ interface IScrollContainer extends ScrollbarProps {
     autoHideTimeout?: number;
     onUpdate?: (values: positionValues) => void;
     scrollTo?: string;
+    shadows?: boolean;
 }
 declare const ScrollContainer: React.FunctionComponent<IScrollContainer>;
 export { IScrollContainer, ScrollContainer };

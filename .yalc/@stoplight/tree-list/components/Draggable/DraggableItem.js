@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const cn = require("classnames");
 const mobx_react_lite_1 = require("mobx-react-lite");
 const React = require("react");
 const hooks_1 = require("../../hooks");
@@ -70,6 +69,6 @@ exports.DraggableItem = mobx_react_lite_1.observer((props) => {
             dragHandler(utils_1.root);
         }
     }, [dragHandler]);
-    return (React.createElement("div", Object.assign({}, rest, { className: cn(className), style: { height: rowHeight }, draggable: true, onDragStart: onDragStart, onDragEnter: onDragEnter, onDragLeave: onDragLeave })));
+    return (React.createElement("div", Object.assign({}, rest, { className: className, draggable: true, onDragStart: onDragStart, onDragEnter: onDragEnter, onDragLeave: onDragLeave })));
 });
 //# sourceMappingURL=DraggableItem.js.map

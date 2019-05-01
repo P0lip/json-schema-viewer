@@ -14,6 +14,7 @@ export declare class TreeStore extends TreeStore_base implements ITreeExpandable
     readonly rename: (node: import("./types").ITreeListNode<object>, validate?: NodeValidator | undefined) => Promise<import("./types").ITreeListNode<object>>;
     readonly toggleExpand: (node: import("./types").ITreeListNode<object>, flag?: boolean | undefined) => void;
     isNodeExpanded(node: TreeListNode): boolean;
+    setActiveNode(nodeId?: string): void;
     cancel(): void;
 }
 export {};
