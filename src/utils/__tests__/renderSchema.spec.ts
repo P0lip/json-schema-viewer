@@ -1,25 +1,20 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { renderSchema } from '../renderSchema';
 
-const BASE_PATH = path.resolve(__dirname, '../../__fixtures__/');
+import { JSONSchema4 } from 'json-schema';
+import { schema as defaultSchema } from '../../__fixtures__/default-schema';
+import { schemaWithRefs } from '../../__fixtures__/ref/original';
+import { dereferencedSchema } from '../../__fixtures__/ref/resolved';
+// import { stressSchema } from '../../__fixtures__/stress-schema';
 
 jest.mock('../assignId', () => ({
   assignId: jest.fn(() => 'random-id'),
 }));
 
 describe('renderSchema util', () => {
-  it.each([['default-schema.json', ''], ['ref/original.json', 'ref/resolved.json']])(
+  it.each([[defaultSchema, undefined], [schemaWithRefs, dereferencedSchema]])(
     'should match %s',
     (schema, dereferenced) => {
-      expect(
-        Array.from(
-          renderSchema(
-            JSON.parse(fs.readFileSync(path.resolve(BASE_PATH, schema), 'utf-8')),
-            dereferenced ? JSON.parse(fs.readFileSync(path.resolve(BASE_PATH, dereferenced), 'utf-8')) : undefined
-          )
-        )
-      ).toMatchSnapshot();
+      expect(renderSchema(schema as JSONSchema4, dereferenced)).toMatchSnapshot();
     }
   );
 });
