@@ -14,19 +14,25 @@ type Walker = (
 ) => IterableIterator<SchemaTreeListNode>;
 
 const getProperties: Walker = function*(schema, dereferencedSchema, level = 0, meta) {
-  if (schema.properties !== undefined) {
-    const { path } = meta!;
-    for (const [prop, property] of Object.entries(schema.properties)) {
-      yield* renderSchema(property, dereferencedSchema, level + 1, {
-        name: prop,
-        required: Array.isArray(schema.required) && schema.required.includes(prop),
-        path: [...path, prop],
-      });
-    }
+  if (schema.properties === undefined) return;
+
+  const { path } = meta!;
+  for (const [prop, property] of Object.entries(schema.properties)) {
+    yield* renderSchema(property, dereferencedSchema, level + 1, {
+      name: prop,
+      required: Array.isArray(schema.required) && schema.required.includes(prop),
+      path: [...path, prop],
+    });
   }
 };
 
 export const renderSchema: Walker = function*(schema, dereferencedSchema, level = 0, meta = { path: [] }) {
+  if (typeof schema !== 'object' || schema === null) {
+    throw new TypeError(
+      `Expected schema to be an "object" but received ${schema === null ? '"null"' : `a "${typeof schema}"`}`
+    );
+  }
+
   const { path } = meta;
 
   for (const node of walk(schema)) {
@@ -83,7 +89,9 @@ export const renderSchema: Walker = function*(schema, dereferencedSchema, level 
           ...baseNode.metadata,
           // https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-5.3.1.2
           ...(!('subtype' in baseNode) &&
-            (node as IArrayNode).additionalItems && { additional: (node as IArrayNode).additionalItems }),
+            (node as IArrayNode).additionalItems && {
+              additional: (node as IArrayNode).additionalItems,
+            }),
         },
       } as SchemaTreeListNode;
 

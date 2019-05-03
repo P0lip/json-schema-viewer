@@ -69,4 +69,15 @@ storiesOf('JsonSchemaViewer', module)
       expanded={boolean('expanded', false)}
       hideTopBar={boolean('hideTopBar', false)}
     />
+  ))
+  .add('error boundary', () => (
+    <JsonSchemaViewer
+      name={text('name', 'throw me an error!')}
+      // @ts-ignore
+      schema={null}
+      onError={error => console.log('You can hook into the onError handler too!', error)}
+      expanded={boolean('expanded', false)}
+      defaultExpandedDepth={number('defaultExpandedDepth', 2)}
+      hideTopBar={boolean('hideTopBar', false)}
+    />
   ));
